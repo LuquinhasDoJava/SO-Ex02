@@ -29,23 +29,45 @@ public class KillController {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			if (os().contains("Linux")) {
-				try {
-					Process pr = Runtime.getRuntime().exec("ps -ef");
-					InputStream is = pr.getInputStream();
-					InputStreamReader isr = new InputStreamReader(is);
-					BufferedReader br = new BufferedReader(isr);
-					String line = br.readLine();
-					while (line != null) {
-						System.out.println(line);
-						line = br.readLine();
-					}
-					is.close();
-					isr.close();
-					br.close();
-				} catch (IOException e) {
-					e.printStackTrace();
+		}
+		if (os().contains("Linux")) {
+			try {
+				Process pr = Runtime.getRuntime().exec("ps -ef");
+				InputStream is = pr.getInputStream();
+				InputStreamReader isr = new InputStreamReader(is);
+				BufferedReader br = new BufferedReader(isr);
+				String line = br.readLine();
+				while (line != null) {
+					System.out.println(line);
+					line = br.readLine();
 				}
+				is.close();
+				isr.close();
+				br.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+
+			}
+		}
+	}
+
+	public void mataPid(int PID) {
+
+		if (os().contains("Windows")) {
+			try {
+				String a = ("TASKKILL /PID " + PID);
+				Process pr = Runtime.getRuntime().exec(a);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		if (os().contains("Linux")) {
+			try {
+				String a = ("kill -9 " + PID);
+				Process pr = Runtime.getRuntime().exec(a);
+			} catch (IOException e) {
+				e.printStackTrace();
+
 			}
 		}
 	}
