@@ -75,7 +75,8 @@ public class KillController {
 		if (os().contains("Windows")) {
 			try {
 				String a = ("TASKKILL /IM " + nome);
-				Process pr = Runtime.getRuntime().exec(a);
+				Process pr;
+				pr = Runtime.getRuntime().exec(a);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
