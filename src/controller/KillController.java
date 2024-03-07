@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 
 public class KillController {
 
-	private String os() {
+	private String os() {				
 		return System.getProperty("os.name");
 	}
 
@@ -52,7 +52,6 @@ public class KillController {
 	}
 
 	public void mataPid(int PID) {
-
 		if (os().contains("Windows")) {
 			try {
 				String a = ("TASKKILL /PID " + PID);
@@ -64,6 +63,26 @@ public class KillController {
 		if (os().contains("Linux")) {
 			try {
 				String a = ("kill -9 " + PID);
+				Process pr = Runtime.getRuntime().exec(a);
+			} catch (IOException e) {
+				e.printStackTrace();
+
+			}
+		}
+	}
+	
+	public void mataNome(String nome) {
+		if (os().contains("Windows")) {
+			try {
+				String a = ("TASKKILL /IM " + nome);
+				Process pr = Runtime.getRuntime().exec(a);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		if (os().contains("Linux")) {
+			try {
+				String a = ("pkill -f " + nome);
 				Process pr = Runtime.getRuntime().exec(a);
 			} catch (IOException e) {
 				e.printStackTrace();
